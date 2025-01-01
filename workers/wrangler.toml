@@ -1,7 +1,7 @@
+main = "./dist/index.js"
+
 [build]
 command = "npm run build"
-
-main = "./dist/index.js"
 
 [vars]
 
@@ -10,6 +10,9 @@ bindings = [
     { name = "TEMPLATES", class_name = "Templates" }
 ]
 
-kv_namespaces = [
+[kv_namespaces]
+bindings = [
   { binding = "SUPABASE_TOKENS", id = "" }
 ]
+
+[migrations]
