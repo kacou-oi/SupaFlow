@@ -22,9 +22,57 @@ async function handleRequest(request) {
     return handleRegister(request);
   } else if (request.method === 'POST' && pathname === '/auth/reset-password') {
     return handleResetPassword(request);
-  }
-   else {
+  } else if (request.method === 'POST' && pathname === '/install') {
+    return handleInstall(request);
+  } else {
     return new Response('Endpoint not found', { status: 404 });
+  }
+}
+
+async function handleInstall(request) {
+  try {
+    const { projectName, adminEmail, adminPassword } = await request.json();
+    if (!projectName || !adminEmail || !adminPassword) {
+      return new Response('Missing project name, admin email, or admin password', { status: 400 });
+    }
+
+    // Insert project
+    const { data: projectData, error: projectError } = await supabase
+      .from('projects')
+      .insert([{ name: projectName }]);
+
+    if (projectError) {
+      console.error('Error inserting project:', projectError);
+      return new Response(JSON.stringify({ error: 'Failed to create project.' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Create admin user
+    const { data: user, error: userError } = await supabase.auth.signUp({
+      email: adminEmail,
+      password: adminPassword,
+    });
+
+    if (userError) {
+      console.error('Error creating admin user:', userError);
+      return new Response(JSON.stringify({ error: 'Failed to create admin user.' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(JSON.stringify({ message: 'SupaFlow is successfully installed!' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Error handling install request:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error.' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
 
