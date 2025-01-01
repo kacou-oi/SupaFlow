@@ -1,0 +1,13 @@
+# Fichiers de log
+*.log
+logs
+
+# Dépendances Node.js
+node_modules
+
+# Fichiers de build
+dist
+build
+
+# Fichiers d'environnement
+.env

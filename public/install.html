@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation de SupaFlow</title>
+    <link href="./assets/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h1 class="text-2xl font-semibold mb-6 text-center">Configuration Initiale de SupaFlow</h1>
+        <form hx-post="/install" hx-target="#content" hx-indicator="#spinner">
+            <div class="mb-4">
+                <label for="projectName" class="block text-gray-700 text-sm font-bold mb-2">Nom du Projet</label>
+                <input type="text" id="projectName" name="projectName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <div class="mb-4">
+                <label for="adminEmail" class="block text-gray-700 text-sm font-bold mb-2">Email de l'Administrateur</label>
+                <input type="email" id="adminEmail" name="adminEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <div class="mb-6">
+                <label for="adminPassword" class="block text-gray-700 text-sm font-bold mb-2">Mot de Passe de l'Administrateur</label>
+                <input type="password" id="adminPassword" name="adminPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <div class="flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Installer
+                </button>
+                <span id="spinner" class="htmx-indicator">
+                    <img src="/img/spinner.gif" width="24"/>
+                </span>
+            </div>
+        </form>
+        <div id="content" class="mt-4 text-center"></div>
+    </div>
+</body>
+</html>
