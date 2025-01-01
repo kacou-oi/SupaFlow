@@ -12,7 +12,7 @@
         <h1 class="text-3xl font-bold text-gray-800">Éditeur de Template</h1>
     </header>
     <main>
-        <form id="template-form" hx-post="/save-template" hx-target="#response-message" hx-on::after-request="this.reset()">
+        <form id="template-form" hx-target="#response-message" hx-on::after-request="this.reset()">
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom du template:</label>
                 <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
@@ -39,6 +39,11 @@
         document.getElementById('preview-button').addEventListener('click', function() {
             const content = document.getElementById('content').value;
             document.getElementById('preview-container').innerHTML = content;
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('template-form');
+            form.setAttribute('hx-post', `${process.env.CLOUDFLARE_WORKER_URL}/save-template`);
         });
     </script>
 </body>

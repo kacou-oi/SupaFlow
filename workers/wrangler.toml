@@ -1,0 +1,8 @@
+name = "supabase-worker"
+main = "./supabase-worker.js"
+compatibility_date = "2023-10-25"
+module = true
+
+[vars]
+SUPABASE_URL = "YOUR_SUPABASE_URL"
+SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"

@@ -34,5 +34,11 @@
         </form>
         <div id="response-message" class="mt-4 text-green-500 font-bold"></div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('register-form');
+            form.setAttribute('hx-post', `${process.env.CLOUDFLARE_WORKER_URL}/auth/register`);
+        });
+    </script>
 </body>
 </html>

@@ -55,3 +55,8 @@ Content-Type: application/json
   "name": "Nom du template",
   "content": "Contenu HTML du template"
 }
+```
+
+## Mise à jour de l'attribut hx-post
+
+L'attribut `hx-post` des formulaires de connexion, d'inscription et de réinitialisation du mot de passe (`/login`, `/register`, `/reset-password`) est désormais défini dynamiquement via JavaScript. Cela permet de s'assurer que les requêtes sont envoyées à l'URL du Cloudflare Worker configurée.
