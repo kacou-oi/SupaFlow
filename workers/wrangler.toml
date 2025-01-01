@@ -1,6 +1,8 @@
 [build]
 command = "npm run build"
 
+main = "./dist/index.js"
+
 [vars]
 
 [durable_objects]
@@ -12,5 +14,3 @@ bindings = [
 bindings = [
   { name = "SUPABASE_TOKENS", id = "" }
 ]
-
-main = "./dist/index.js"
