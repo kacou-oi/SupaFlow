@@ -70,7 +70,7 @@ async function handleInstall(request) {
   } catch (error) {
     console.error('Error handling install request:', error);
     return new Response(JSON.stringify({ error: 'Internal server error.' }), {
-      status: 500,
+      status: 200, // Ensure a 200 status even on error to prevent redirects
       headers: { 'Content-Type': 'application/json' },
     });
   }
