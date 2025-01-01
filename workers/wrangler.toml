@@ -1,3 +1,16 @@
 [build]
 command = "npm run build"
-webpack_config = "webpack.config.js"
+
+[vars]
+
+[durable_objects]
+bindings = [
+    { name = "TEMPLATES", class_name = "Templates" }
+]
+
+[kv_namespaces]
+bindings = [
+  { name = "SUPABASE_TOKENS", id = "" }
+]
+
+main = "./dist/index.js"
