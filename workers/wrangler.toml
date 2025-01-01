@@ -1,4 +1,4 @@
-name = "supabase-worker"
+name = "supaflow-worker"
 main = "./index.js"
 compatibility_date = "2023-10-25"
 module = true
