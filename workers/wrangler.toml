@@ -10,9 +10,8 @@ bindings = [
     { name = "TEMPLATES", class_name = "Templates" }
 ]
 
-[kv_namespaces]
-bindings = [
+kv_namespaces = [
   { binding = "SUPABASE_TOKENS", id = "" }
 ]
 
-[migrations]
+migrations = []
