@@ -17,7 +17,7 @@
         <h1 class="text-3xl font-bold text-gray-800">Tableau de Bord des Templates</h1>
     </header>
     <main>
-        <div id="templates-list" hx-get="/get-templates" hx-trigger="load" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+<div id="templates-list" hx-get="/get-templates" hx-trigger="load" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" hx-headers='{"Authorization": "Bearer YOUR_STATIC_TOKEN"}'>
             <template id="template-item">
                 <div class="bg-white rounded-md shadow-md p-4">
                     <h2 class="text-xl font-semibold" data-bind="name"></h2>

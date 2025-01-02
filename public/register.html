@@ -38,6 +38,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('register-form');
             form.setAttribute('hx-post', `${process.env.CLOUDFLARE_WORKER_URL}/auth/register`);
+            form.setAttribute('hx-headers', '{"Authorization": "Bearer YOUR_STATIC_TOKEN"}');
         });
     </script>
 </body>
