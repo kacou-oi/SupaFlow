@@ -60,3 +60,32 @@ Content-Type: application/json
 ## Mise à jour de l'attribut hx-post
 
 L'attribut `hx-post` des formulaires de connexion, d'inscription et de réinitialisation du mot de passe (`/login`, `/register`, `/reset-password`) est désormais défini dynamiquement via JavaScript. Cela permet de s'assurer que les requêtes sont envoyées à l'URL du Cloudflare Worker configurée.
+
+## Arborescence du projet
+```
+.gitignore                 # Fichiers ou dossiers à exclure de Git
+LICENSE                   # Licence du projet
+README.md                 # Documentation du projet
+package.json              # Dépendances Node.js
+webpack.config.js         # Configuration Webpack pour le build frontend
+deploy-frontend.sh        # Script de déploiement du frontend
+
+config/                   # Configuration pour Supabase et autres services
+├── supabase_init.sql     # Script pour initialiser la base de données Supabase
+
+functions/                # Cloudflare Pages Functions (Workers JS intégrés)
+├── index.js              # Entrée principale pour les routes et API
+└── wrangler.toml
+
+public/                   # Fichiers frontend (HTML, CSS, JS, assets)
+├── _redirects            # Configuration des redirections (pour Cloudflare Pages)
+├── assets/               # Ressources statiques
+│   └── style.css         # Fichier CSS principal
+├── dashboard.html        # Page du tableau de bord
+├── editor.html           # Page de l'éditeur de landing pages
+├── install.html          # Page d'installation
+├── login.html            # Page de connexion
+├── register.html         # Page d'inscription
+└── reset-password.html   # Page de réinitialisation du mot de passe
+
+templates/                # Modèles pour les landing pages ou autres fichiers HTML

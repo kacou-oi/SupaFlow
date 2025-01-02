@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './workers/supaflow-worker.js',
+  entry: './workers/supabase-worker.js',
   output: {
     filename: 'index.js',
     path: __dirname + '/dist',
