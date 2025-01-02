@@ -15,6 +15,12 @@ Suivez ces étapes pour installer et configurer SupaFlow :
 2. **Configurez Supabase :**
    - Connectez-vous à votre compte Supabase ou créez-en un.
    - Créez un nouveau projet.
+   - Accédez aux paramètres de votre projet Supabase et copiez l'URL et la clé API anonyme.
+   - Ajoutez ces valeurs à votre fichier `.env` :
+     ```
+     SUPABASE_URL=VOTRE_URL_SUPABASE
+     SUPABASE_ANON_KEY=VOTRE_CLE_API_SUPABASE
+     ```
    - Accédez à l'éditeur SQL et exécutez le script contenu dans `config/supabase_init.sql` pour créer les tables nécessaires.
 
 3. **Configurez Cloudflare Workers :**
@@ -63,28 +69,27 @@ L'attribut `hx-post` des formulaires de connexion, d'inscription et de réinitia
 
 ## Arborescence du projet
 ```
-.gitignore
-LICENSE
-README.md
-package.json
-webpack.config.js
-deploy-frontend.sh
-config/
-└── supabase_init.sql
-functions/
-├── index.js
-└── wrangler.toml
-public/
-├── _redirects
-├── assets/
-│   └── style.css
-├── dashboard.html
-├── editor.html
-├── install.html
-├── login.html
-├── register.html
-└── reset-password.html
-templates/
-workers/
-├── index.js
-└── wrangler.toml
+.
+├── LICENSE
+├── README.md
+├── deploy-frontend.sh
+├── package.json
+└── webpack.config.js
+├── config
+│   └── supabase_init.sql
+├── public
+│   ├── _redirects
+│   ├── assets
+│   │   └── style.css
+│   ├── dashboard.html
+│   ├── editor.html
+│   ├── install.html
+│   ├── login.html
+│   ├── register.html
+│   └── reset-password.html
+├── templates
+└── workers
+    ├── index.js
+    └── wrangler.toml
+
+4 directories, 15 files

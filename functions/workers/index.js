@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = 'https://pfzxcukixwflfxxtxmvp.supabase.co'; // Remplacez par l'URL de votre projet Supabase
-const SUPABASE_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmenhjdWtpeHdmbGZ4eHR4bXZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU3MjM5ODYsImV4cCI6MjA1MTI5OTk4Nn0.IeWlfZQvCp7HMBNoPflJXvFi68ZvXribMzrivpZnMcU'; // Remplacez par votre clé API anonyme Supabase
+const SUPABASE_URL = env.SUPABASE_URL;
+const SUPABASE_API_KEY = env.SUPABASE_ANON_KEY;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_API_KEY);
 
