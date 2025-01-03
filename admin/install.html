@@ -12,26 +12,23 @@
         <h2 class="text-2xl font-semibold mb-6 text-center">Installation du SupaFlow</h2>
         <form id="installForm" class="space-y-6" hx-boost="false">
             <div>
-                <label for="projectName" class="block text-gray-700 text-sm font-bold mb-4">Nom du projet</label>
-                <input type="text" id="projectName" name="projectName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6" placeholder="Nom de votre projet">
-                <label for="supabaseUrl" class="block text-gray-700 text-sm font-bold mb-4">URL Supabase</label>
-                <input type="text" id="supabaseUrl" name="supabaseUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6" placeholder="URL de votre projet Supabase">
-                <label for="supabaseKey" class="block text-gray-700 text-sm font-bold mb-4">Clé API Supabase</label>
-                <input type="text" id="supabaseKey" name="supabaseKey" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6" placeholder="Clé API anonyme de votre projet Supabase">
+                <label for="projectName" class="block text-gray-700 text-sm font-bold mb-2">Nom du projet</label>
+                <input type="text" id="projectName" name="projectName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" placeholder="Nom de votre projet">
+                <label for="supabaseUrl" class="block text-gray-700 text-sm font-bold mb-2">URL Supabase</label>
+                <input type="text" id="supabaseUrl" name="supabaseUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" placeholder="URL de votre projet Supabase">
+                <label for="supabaseKey" class="block text-gray-700 text-sm font-bold mb-2">Clé API Supabase</label>
+                <input type="text" id="supabaseKey" name="supabaseKey" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" placeholder="Clé API anonyme de votre projet Supabase">
                 <label for="adminEmail" class="block text-gray-700 text-sm font-bold mb-2">Email de l'administrateur</label>
-                <input type="email" id="adminEmail" name="adminEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6" placeholder="Email de l'administrateur">
+                <input type="email" id="adminEmail" name="adminEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" placeholder="Email de l'administrateur">
                 <label for="adminPassword" class="block text-gray-700 text-sm font-bold mb-2">Mot de passe de l'administrateur</label>
-                <input type="password" id="adminPassword" name="adminPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6" placeholder="Mot de passe de l'administrateur">
-            </div>
-            <div>
-                <input type="checkbox" id="installSampleData" name="installSampleData" class="mr-2">
-                <label for="installSampleData" class="text-gray-700 text-sm font-bold mb-4">Installer les données d'exemple</label>
+                <input type="password" id="adminPassword" name="adminPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" placeholder="Mot de passe de l'administrateur">
+                 <input type="checkbox" id="installSampleData" name="installSampleData" class="mr-1">
+                <label for="installSampleData" class="text-gray-700 text-sm font-bold mb-2">Installer les données d'exemple</label>
             </div>
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
                 Lancer l'installation
             </button>
         </form>
-addAlignment
     </div>
 </body>
 </html>
