@@ -13,7 +13,7 @@ Suivez ces étapes pour installer et configurer SupaFlow :
    ```
 
 2. **Processus d'installation :**
-   Ouvrez le fichier `public/install.html` dans votre navigateur pour démarrer le processus d'installation. Suivez les instructions à l'écran pour configurer votre projet, fournir vos identifiants Supabase et créer le compte administrateur initial. Les identifiants Supabase seront automatiquement enregistrés dans un fichier `.env` à la racine du projet.
+   Ouvrez le fichier `admin/install.html` dans votre navigateur pour démarrer le processus d'installation. Suivez les instructions à l'écran pour configurer votre projet, fournir vos identifiants Supabase et créer le compte administrateur initial. Les identifiants Supabase seront automatiquement enregistrés dans un fichier `.env` à la racine du projet.
 
 ## Structure du projet
 
