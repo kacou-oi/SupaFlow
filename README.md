@@ -20,17 +20,26 @@ Suivez ces étapes pour installer et configurer SupaFlow :
 La structure des fichiers importants est la suivante :
 
 ```
+admin/
+├── create-page.html
+├── dashboard.html
+├── edit-page.html
+├── install.html
+├── login.html
+└── manage-pages.html
 public/
 ├── index.html
-├── install.html
+├── _redirects
 ├── assets/
+│   └── doc.txt
 ├── css/
 │   └── style.css
 └── js/
     └── script.js
 ```
 
-*   Les fichiers HTML (`index.html`, `install.html`) sont situés à la racine du dossier `public`.
+*   Le dossier `admin/` contient les fichiers HTML pour l'interface d'administration.
+*   Les fichiers HTML publics (`index.html`) sont situés à la racine du dossier `public`.
 *   Les feuilles de style CSS sont regroupées dans le dossier `public/css`.
 *   Les fichiers JavaScript sont regroupés dans le dossier `public/js`.
 *   Le dossier `public/assets` est disponible pour les autres types de ressources comme les images ou les polices.
@@ -49,14 +58,20 @@ Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
 
 Voici comment utiliser SupaFlow pour créer et gérer vos landing pages :
 
-1. **Modifier `index.html` :**
+1. **Interface d'administration :**
+   Accédez à l'interface d'administration via les fichiers dans le dossier `admin/`. Connectez-vous pour gérer vos pages.
+
+2. **Gérer les pages :**
+   Dans le tableau de bord d'administration, vous pouvez créer, modifier et supprimer des pages. La page de gestion des pages (`admin/manage-pages.html`) utilise HTMX pour charger la liste des pages de manière dynamique après avoir cliqué sur le bouton "Charger les Pages".
+
+3. **Modifier `index.html` :**
    La structure de votre landing page est définie dans le fichier `index.html`. Vous pouvez modifier le contenu de la section `<main>` pour ajouter vos propres éléments.
 
-2. **Utiliser HTMX pour le contenu dynamique :**
+4. **Utiliser HTMX pour le contenu dynamique :**
    SupaFlow utilise HTMX pour charger du contenu de manière dynamique. Vous pouvez ajouter des attributs HTMX à vos éléments HTML pour effectuer des requêtes vers votre base de données Supabase et mettre à jour le contenu de la page sans rechargement complet.
 
-3. **Styler avec Tailwind CSS :**
-   Utilisez les classes utilitaires de Tailwind CSS pour styler vos éléments HTML. Les styles sont définis dans le fichier `public/css/style.css`.
+5. **Styler avec Tailwind CSS :**
+   Utilisez les classes utilitaires de Tailwind CSS pour styler vos éléments HTML. Les styles sont définis dans le fichier `public/css/style.css`. La configuration de Tailwind CSS se trouve dans le fichier `tailwind.config.js`.
 
 ## Déploiement sur Cloudflare Pages
 

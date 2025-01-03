@@ -1,1 +1,84 @@
-Ce dossier contient les ressources statiques du site web, telles que les images, les polices et autres fichiers multimédias.
+# Documentation du Projet SupaFlow
+
+## Description
+
+SupaFlow est un projet web visant à [Décrire l'objectif du projet ici]. Il utilise des technologies modernes pour offrir une expérience utilisateurPerformante et agréable.
+
+## Technologies Utilisées
+
+* **Tailwind CSS :** Un framework CSS utilitaire-first pour un développement rapide et une personnalisation aisée de l'interface utilisateur.
+* **HTMX :** Une librairie permettant d'accéder à des fonctionnalités avancées d'HTML5 directement dans votre HTML, facilitant les requêtes AJAX, les transitions CSS, et les WebSockets.
+* **Supabase :** Une plateforme open-source fournissant des outils backend tels qu'une base de données PostgreSQL, une authentification, du stockage et des fonctions edge.
+* **JavaScript :** Pour la logique côté client et l'interaction avec l'API Supabase.
+
+## Prérequis
+
+Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
+
+* [Node.js](https://nodejs.org/) et npm (ou yarn) pour la gestion des dépendances JavaScript.
+* Un compte [Supabase](https://supabase.com/) pour configurer votre base de données et obtenir les clés d'API.
+
+## Configuration
+
+1. **Cloner le dépôt :**
+   ```bash
+   git clone [URL du dépôt]
+   cd SupaFlow
+   ```
+
+2. **Installer les dépendances :**
+   ```bash
+   npm install
+   ```
+
+3. **Configurer les variables d'environnement :**
+   Créez un fichier `.env` à la racine du projet et ajoutez-y les variables d'environnement nécessaires, notamment les clés d'API Supabase. Vous pouvez vous inspirer du fichier `config/example.env`.
+
+   ```
+   SUPABASE_URL=VOTRE_URL_SUPABASE
+   SUPABASE_KEY=VOTRE_CLE_API_SUPABASE
+   ```
+
+## Démarrage du Projet
+
+Pour lancer le projet en mode développement :
+
+1. **Démarrer le serveur de développement :**
+   ```bash
+   npm run dev
+   ```
+   (ou la commande appropriée si elle est différente)
+
+2. **Ouvrir l'application dans votre navigateur :**
+   Visitez `http://localhost:[port]` (le port peut varier).
+
+## Structure du Projet
+
+* **`admin/` :** Contient les fichiers relatifs à l'interface d'administration.
+* **`config/` :** Fichiers de configuration, y compris la configuration de la base de données.
+* **`public/` :** Ressources publiques telles que les fichiers CSS, JavaScript et les assets.
+* **`public/css/style.css` :** Fichier CSS principal (peut être généré par Tailwind).
+* **`public/js/script.js` :** Fichier JavaScript principal pour la logique côté client.
+* **`index.html` :** Page d'accueil du site.
+* **`package.json` :** Fichier de configuration npm contenant les dépendances et les scripts.
+* **`tailwind.config.js` :** Configuration de Tailwind CSS.
+
+## Utilisation de Tailwind CSS
+
+Tailwind CSS est configuré via le fichier `tailwind.config.js`. Vous pouvez personnaliser le thème, les couleurs, les polices et d'autres aspects de l'apparence de votre site en modifiant ce fichier. Les classes utilitaires de Tailwind sont ensuite utilisées directement dans le HTML pour styliser les éléments.
+
+## Utilisation de HTMX
+
+HTMX simplifie la création d'interfaces web dynamiques. Vous pouvez ajouter des attributs HTMX directement dans vos éléments HTML pour effectuer des requêtes, cibler des éléments à mettre à jour et bien plus encore, sans avoir à écrire beaucoup de JavaScript.
+
+## Déploiement
+
+[Instructions de déploiement à ajouter ici]
+
+## Contribution
+
+[Instructions de contribution à ajouter ici]
+
+---
+
+Ce document fournit une vue d'ensemble du projet et de sa configuration. Pour des informations plus détaillées, veuillez consulter les fichiers spécifiques et la documentation des technologies utilisées.
