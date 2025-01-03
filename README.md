@@ -83,10 +83,10 @@ Voici comment utiliser SupaFlow pour créer et gérer vos landing pages :
 
 Ce projet étant un site statique, vous pouvez le déployer sur diverses plateformes d'hébergement statique telles que :
 
+* **CloudFlare Pages :** [https://pages.cloudflare.com/](https://pages.cloudflare.com/)
+* **GitHub Pages :** [https://pages.github.com/](https://pages.github.com/)
 * **Netlify :** [https://www.netlify.com/](https://www.netlify.com/)
 * **Vercel :** [https://vercel.com/](https://vercel.com/)
-* **GitHub Pages :** [https://pages.github.com/](https://pages.github.com/)
-* **GCloudFlare Pages :** [https://pages.cloudflare.com/](https://pages.cloudflare.com/)
 
 Suivez les instructions de la plateforme choisie pour déployer votre site statique. Généralement, cela implique de connecter votre dépôt Git à la plateforme.
 
