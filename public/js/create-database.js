@@ -29,7 +29,7 @@ export const adminPassword = '${adminPassword}';
                 body: JSON.stringify({
                     tool_name: 'write_to_file',
                     arguments: {
-                        path: '.env',
+                        path: 'config/env.js',
                         content: envContent,
                     },
                 }),
