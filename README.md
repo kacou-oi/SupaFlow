@@ -77,14 +77,47 @@ Voici comment utiliser SupaFlow pour créer et gérer vos landing pages :
 
 ## Déploiement
 
-Ce projet étant un site statique, vous pouvez le déployer sur diverses plateformes d'hébergement statique telles que :
+Ce projet étant un site statique, vous pouvez le déployer sur diverses plateformes d'hébergement statique. Voici les instructions pour certaines plateformes populaires :
 
-* **CloudFlare Pages :** [https://pages.cloudflare.com/](https://pages.cloudflare.com/)
-* **GitHub Pages :** [https://pages.github.com/](https://pages.github.com/)
-* **Netlify :** [https://www.netlify.com/](https://www.netlify.com/)
-* **Vercel :** [https://vercel.com/](https://vercel.com/)
+### 1. Cloudflare Pages
 
-Suivez les instructions de la plateforme choisie pour déployer votre site statique. Généralement, cela implique de connecter votre dépôt Git à la plateforme.
+Pour déployer sur Cloudflare Pages :
+
+1. Connectez-vous à votre compte Cloudflare et accédez à Cloudflare Pages.
+2. Cliquez sur "Créer un projet Page" et sélectionnez "Connecter à un référentiel Git".
+3. Choisissez le dépôt GitHub de votre projet SupaFlow.
+4. Dans la section "Configurer les builds", utilisez les paramètres par défaut. Cloudflare Pages détectera automatiquement qu'il s'agit d'un site statique.
+5. Cliquez sur "Enregistrer et déployer".
+
+### 2. GitHub Pages
+
+Pour déployer sur GitHub Pages :
+
+1. Assurez-vous que votre dépôt GitHub est public.
+2. Dans les paramètres de votre dépôt, accédez à la section "Pages".
+3. Dans le menu déroulant "Source", choisissez la branche `main` (ou la branche sur laquelle se trouve votre code) et le dossier racine `/ (root)`.
+4. Cliquez sur "Enregistrer". Votre site sera disponible à l'adresse `https://<votre_nom_utilisateur>.github.io/<nom_du_dépôt>`.
+
+### 3. Netlify
+
+Pour déployer sur Netlify :
+
+1. Connectez-vous à votre compte Netlify.
+2. Cliquez sur "Add new site" puis "Deploy with Git".
+3. Sélectionnez GitHub et autorisez Netlify à accéder à vos dépôts.
+4. Choisissez le dépôt GitHub de votre projet SupaFlow.
+5. Vérifiez les paramètres de build (généralement, Netlify les détecte automatiquement pour les sites statiques).
+6. Cliquez sur "Deploy site".
+
+### 4. Vercel
+
+Pour déployer sur Vercel :
+
+1. Connectez-vous à votre compte Vercel.
+2. Cliquez sur "Add New..." et sélectionnez "Project".
+3. Choisissez le dépôt GitHub de votre projet SupaFlow.
+4. Vercel détectera automatiquement qu'il s'agit d'un site statique et configurera le déploiement.
+5. Cliquez sur "Deploy".
 
 ## Contribution
 
