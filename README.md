@@ -90,7 +90,7 @@ Pour déployer sur Cloudflare Pages :
 4. Dans la section "Configurer les builds", utilisez les paramètres par défaut. Cloudflare Pages détectera automatiquement qu'il s'agit d'un site statique.
 5. Cliquez sur "Enregistrer et déployer".
 
-**Note importante :** N'oubliez pas de déployer séparément le Cloudflare Worker sur Cloudflare Workers. Le code du Worker se trouve dans le fichier `worker.js`.
+**Note importante :** N'oubliez pas de déployer séparément le Cloudflare Worker sur Cloudflare Workers. Le code du Worker se trouve dans le fichier `config/worker.js`.
 
 ### 2. GitHub Pages
 
