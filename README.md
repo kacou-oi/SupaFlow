@@ -1,6 +1,6 @@
 # SupaFlow
 
-SupaFlow est un CMS statique open-source pour la création de landing pages, développé par Ange Kacou Oi ([kacou-oi.com](https://kacou-oi.com)). Il utilise HTMX pour une expérience utilisateur dynamique, Tailwind CSS pour un style moderne et une base de données Supabase pour la gestion du contenu, le tout interrogeable directement depuis le navigateur.
+SupaFlow est un CMS statique et *serverless* open-source pour la création de landing pages, développé par Ange Kacou Oi ([kacou-oi.com](https://kacou-oi.com)). Il utilise HTMX pour une expérience utilisateur dynamique, Tailwind CSS pour un style moderne et une base de données Supabase pour la gestion du contenu, le tout interrogeable directement depuis le navigateur via l'API Supabase.
 
 ## Installation
 
@@ -12,13 +12,9 @@ Suivez ces étapes pour installer et configurer SupaFlow :
    cd supaflow
    ```
 
-2. **Configurer les clés d'API Supabase :**
-   Ouvrez le fichier `public/js/script.js` et `public/js/create-database.js` et remplacez les placeholders `YOUR_SUPABASE_URL` et `YOUR_SUPABASE_KEY` par vos identifiants Supabase.
-
-   **Attention :** Inclure directement vos clés d'API dans le code client n'est pas recommandé pour les applications en production. Considérez des méthodes plus sécurisées pour gérer les secrets en environnement de production.
-
-3. **Processus d'installation :**
+2. **Processus d'installation :**
    Ouvrez le fichier `admin/install.html` dans votre navigateur pour démarrer le processus d'installation et initialiser votre base de données Supabase.
+
 
 ## Structure du projet
 
