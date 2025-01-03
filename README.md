@@ -26,6 +26,19 @@ Suivez ces étapes pour installer et configurer SupaFlow :
 3. **Ouvrir `index.html` dans votre navigateur :**
    Comme SupaFlow est conçu pour un hébergement statique, ouvrez simplement le fichier `index.html` dans votre navigateur web.
 
+## Configuration de Supabase
+
+Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
+
+1. **Créer un projet sur Supabase :**
+   Rendez-vous sur [supabase.com](https://supabase.com/) et créez un nouveau projet.
+
+2. **Obtenir les identifiants Supabase :**
+   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API de votre projet.
+
+3. **Mettre à jour le fichier `.env` :**
+   Remplacez les valeurs d'espace réservé dans le fichier `.env` par l'URL et la clé API de votre projet Supabase.
+
 ## Utilisation
 
 Voici comment utiliser SupaFlow pour créer et gérer vos landing pages :
