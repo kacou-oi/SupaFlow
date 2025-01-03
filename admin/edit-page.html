@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éditer la Page - SupaFlow</title>
+    <link href="../output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-semibold mb-4">Éditer la Page</h1>
+        <div class="bg-white shadow-md rounded p-4">
+            <form id="edit-page-form" class="space-y-4">
+                <input type="hidden" id="id" name="id">
+                <div>
+                    <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Titre</label>
+                    <input type="text" id="title" name="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <div>
+                    <label for="slug" class="block text-gray-700 text-sm font-bold mb-2">Slug</label>
+                    <input type="text" id="slug" name="slug" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <div>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Enregistrer</button>
+                </div>
+            </form>
+            <a hx-get="/admin/manage-pages.html" hx-target="#content" class="text-blue-500 hover:text-blue-700 mt-4 block">Annuler</a>
+        </div>
+    </div>
+    <script type="module">
+        import { getSupabaseClient } from '../config.js';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const pageId = urlParams.get('id');
+
+        async function fetchPageData(id) {
+            const supabase = getSupabaseClient();
+            const { data: page, error } = await supabase
+                .from('pages')
+                .select('id, title, slug')
+                .eq('id', id)
+                .single();
+
+            if (error) {
+                alert('Erreur lors du chargement des données de la page : ' + error.message);
+            } else {
+                document.getElementById('id').value = page.id;
+                document.getElementById('title').value = page.title;
+                document.getElementById('slug').value = page.slug;
+            }
+        }
+
+        fetchPageData(pageId);
+
+        const form = document.getElementById('edit-page-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const id = document.getElementById('id').value;
+            const title = document.getElementById('title').value;
+            const slug = document.getElementById('slug').value;
+            const supabase = getSupabaseClient();
+
+            const { error } = await supabase
+                .from('pages')
+                .update({ title: title, slug: slug })
+                .eq('id', id);
+
+            if (error) {
+                alert('Erreur lors de la mise à jour de la page : ' + error.message);
+            } else {
+                alert('Page mise à jour avec succès !');
+                htmx.ajax('GET', '/admin/manage-pages.html', '#content');
+            }
+        });
+    </script>
+</body>
+</html>
