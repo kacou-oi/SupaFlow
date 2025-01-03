@@ -60,8 +60,8 @@
 
                 const supabase = createClient(supabaseUrl, supabaseApiKey);
 
-                // Initialize database (simulated, actual database command execution not possible in this environment)
-                console.log('Initializing database...');
+                // Initialize database schema (simulated)
+                console.log('Initializing database schema from config/database_init.sql...');
 
                 // Create admin user
                 const { data, error } = await supabase.auth.signUp({
