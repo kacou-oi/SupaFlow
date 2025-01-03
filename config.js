@@ -1,10 +1,12 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+import * as dotenv from 'dotenv';
+dotenv.config({ path: './config/.env' });
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-  throw new Error('VITE_SUPABASE_URL and VITE_SUPABASE_KEY must be defined as environment variables.');
+  throw new Error('SUPABASE_URL and SUPABASE_KEY must be defined in the .env file.');
 }
 
 export function getSupabaseClient() {

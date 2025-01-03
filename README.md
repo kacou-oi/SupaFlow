@@ -68,6 +68,8 @@ Pour déployer SupaFlow sur Cloudflare Pages, suivez ces étapes :
 4. **Dans les paramètres de configuration, assurez-vous que le "Répertoire de sortie" est défini sur `public`.**
 5. **Enregistrez et déployez.**
 
+   Pour gérer les redirections et supprimer l'extension `.html` des URLs, un fichier `_redirects` a été ajouté au dossier `public`. Ce fichier contient les règles de redirection pour Cloudflare Pages.
+
 ## Contribution
 
 Les contributions à SupaFlow sont les bienvenues ! Si vous souhaitez contribuer au projet, veuillez consulter les [guidelines de contribution](CONTRIBUTING.md).
