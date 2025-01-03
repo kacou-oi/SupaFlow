@@ -23,26 +23,29 @@
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Créer</button>
                 </div>
             </form>
-            <a hx-get="/admin/manage-pages.html" hx-target="#content" class="text-blue-500 hover:text-blue-700 mt-4 block">Retour à la gestion des pages</a>
+<a hx-get="https://supaflowdemo.ange-kacou-oi.workers.dev/admin/manage-pages.html" hx-target="#content" class="text-blue-500 hover:text-blue-700 mt-4 block">Retour à la gestion des pages</a>
         </div>
     </div>
     <script type="module">
-        import { getSupabaseClient } from '../config.js';
-
         const form = document.getElementById('create-page-form');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const title = document.getElementById('title').value;
             const slug = document.getElementById('slug').value;
-            const supabase = getSupabaseClient();
 
-            const { error } = await supabase
-                .from('pages') // Replace 'pages' with your actual table name
-                .insert([{ title: title, slug: slug }]);
+            const response = await fetch('/create-page', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, slug })
+            });
 
-            if (error) {
-                alert('Erreur lors de la création de la page : ' + error.message);
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert('Erreur lors de la création de la page : ' + data.message);
             } else {
                 alert('Page créée avec succès !');
                 // Redirect to manage pages or clear the form

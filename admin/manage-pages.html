@@ -11,7 +11,7 @@
         <h1 class="text-3xl font-semibold mb-4">Gérer les Pages</h1>
         <div class="bg-white shadow-md rounded p-4">
             <p>Ici, vous pouvez gérer les pages de votre site.</p>
-            <button hx-get="/admin/fetch-pages" hx-target="#pages-table tbody" hx-trigger="click" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
+<button hx-get="https://supaflowdemo.ange-kacou-oi.workers.dev/admin/fetch-pages" hx-target="#pages-table tbody" hx-trigger="click" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
                 Charger les Pages
             </button>
             <div class="overflow-x-auto">
@@ -30,11 +30,10 @@
                     </tbody>
                 </table>
             </div>
-            <a hx-get="/admin/dashboard.html" hx-target="#content" class="text-blue-500 hover:text-blue-700 mt-4 block">Retour au tableau de bord</a>
+<a hx-get="https://supaflowdemo.ange-kacou-oi.workers.dev/admin/dashboard.html" hx-target="#content" class="text-blue-500 hover:text-blue-700 mt-4 block">Retour au tableau de bord</a>
         </div>
     </div>
     <script type="module">
-        import { getSupabaseClient } from '../config.js';
         import htmx from 'htmx.org';
 
         // Basic check for authentication
@@ -43,24 +42,27 @@
         }
 
         async function fetchPages() {
-            const supabase = getSupabaseClient();
-            const { data: pages, error } = await supabase
-                .from('pages') // Replace 'pages' with your actual table name
-                .select('id, title, slug');
+            const response = await fetch('/api/pages', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
 
-            if (error) {
-                return `<tr><td colspan="3" class="text-red-500">${error.message}</td></tr>`;
+            if (!response.ok) {
+                return `<tr><td colspan="3" class="text-red-500">${data.message}</td></tr>`;
             }
 
             let rows = '';
-            pages.forEach(page => {
+            data.forEach(page => {
                 rows += `
                     <tr>
                         <td class="px-4 py-2 border-b">${page.title}</td>
                         <td class="px-4 py-2 border-b">${page.slug}</td>
                         <td class="px-4 py-2 border-b">
-                            <button hx-get="/admin/edit-page.html?id=${page.id}" hx-target="#content" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Éditer</button>
-                            <button hx-delete="/admin/delete-page/${page.id}" hx-target="closest tr" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2">Supprimer</button>
+                            <button hx-get="https://supaflowdemo.ange-kacou-oi.workers.dev/admin/edit-page.html?id=${page.id}" hx-target="#content" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Éditer</button>
+<button hx-delete="https://supaflowdemo.ange-kacou-oi.workers.dev/api/delete-page/${page.id}" hx-target="closest tr" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2">Supprimer</button>
                         </td>
                     </tr>
                 `;
@@ -73,28 +75,9 @@
                 const shouldDelete = confirm('Êtes-vous sûr de vouloir supprimer cette page ?');
                 if (!shouldDelete) {
                     evt.preventDefault();
-                } else {
-                    const pageId = evt.detail.path.split('/').pop();
-                    deletePage(pageId);
-                    evt.preventDefault(); // Prevent default HTMX request
                 }
             }
         });
-
-        async function deletePage(id) {
-            const supabase = getSupabaseClient();
-            const { error } = await supabase
-                .from('pages')
-                .delete()
-                .eq('id', id);
-
-            if (error) {
-                alert('Erreur lors de la suppression de la page : ' + error.message);
-            } else {
-                // The row will be automatically removed due to hx-target="closest tr"
-                alert('Page supprimée avec succès.');
-            }
-        }
 
         htmx.defineExtension('fetch-pages', {
             onEvent: {

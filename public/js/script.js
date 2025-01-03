@@ -1,89 +1,45 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://pfzxcukixwflfxxtxmvp.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmenhjdWtpeHdmbGZ4eHR4bXZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU3MjM5ODYsImV4cCI6MjA1MTI5OTk4Nn0.IeWlfZQvCp7HMBNoPflJXvFi68ZvXribMzrivpZnMcU';
-
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 async function handleLogin(event) {
     event.preventDefault();
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const { error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
+    const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password,
+        }),
     });
 
-    if (error) {
-        alert(error.message);
-    } else {
+    const data = await response.json();
+
+    if (response.ok) {
         window.location.href = 'dashboard.html';
+    } else {
+        alert(data.error_description || data.message);
     }
 }
 
 const loginForm = document.querySelector('form');
 loginForm.addEventListener('submit', handleLogin);
+ window.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('a[data-hx-get], a[data-hx-post]');
+    links.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const targetId = this.getAttribute('data-hx-target');
+            const url = this.getAttribute('data-hx-get') || this.getAttribute('data-hx-post');
+            const method = this.getAttribute('data-hx-get') ? 'GET' : 'POST';
 
-async function handleAdminCreation(event) {
-    event.preventDefault();
-
-    const siteName = document.getElementById('siteName').value;
-    const adminEmail = document.getElementById('adminEmail').value;
-    const adminPassword = document.getElementById('adminPassword').value;
-    const errorDiv = document.getElementById('error-message');
-    const installationUrl = window.location.origin;
-
-    const { data: user, error: signUpError } = await supabase.auth.signUp({
-        email: adminEmail,
-        password: adminPassword,
+            fetch(url, { method })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById(targetId).innerHTML = html;
+                });
+        });
     });
-
-    if (signUpError) {
-        errorDiv.textContent = signUpError.message;
-        return;
-    }
-
-    const { error: userError } = await supabase
-        .from('users')
-        .insert([{ email: adminEmail }]);
-
-    if (userError) {
-        errorDiv.textContent = userError.message;
-        return;
-    }
-
-    const { error: settingsError } = await supabase
-        .from('settings')
-        .insert([{ site_name: siteName, installation_url: installationUrl, admin_email: adminEmail }]);
-
-    if (settingsError) {
-        errorDiv.textContent = settingsError.message;
-        return;
-    }
-
-    window.location.href = 'dashboard.html';
-}
-
-const adminForm = document.getElementById('adminForm');
-if (adminForm) {
-    adminForm.addEventListener('submit', handleAdminCreation);
-}
-
-async function testSupabaseConnection() {
-    const statusDiv = document.getElementById('supabase-status');
-    statusDiv.textContent = 'Test de connexion en cours...';
-    try {
-        const { data, error } = await supabase.from('settings').select('*').limit(1);
-        if (error) {
-            statusDiv.textContent = 'Erreur de connexion à Supabase : ' + error.message;
-        } else {
-            statusDiv.textContent = 'Connexion à Supabase réussie !';
-        }
-    } catch (error) {
-        statusDiv.textContent = 'Erreur de connexion à Supabase : ' + error.message;
-    }
-}
-
-document.getElementById('testSupabase').addEventListener('click', testSupabaseConnection);
+});

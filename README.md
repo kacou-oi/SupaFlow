@@ -1,6 +1,6 @@
 # SupaFlow
 
-SupaFlow est un CMS statique et *serverless* open-source pour la création de landing pages, développé par Ange Kacou Oi ([kacou-oi.com](https://kacou-oi.com)). Il utilise HTMX pour une expérience utilisateur dynamique, Tailwind CSS pour un style moderne et une base de données Supabase pour la gestion du contenu, le tout interrogeable directement depuis le navigateur via l'API Supabase.
+SupaFlow est un CMS statique et *serverless* open-source pour la création de landing pages, développé par Ange Kacou Oi ([kacou-oi.com](https://kacou-oi.com)). Il utilise HTMX pour une expérience utilisateur dynamique, Tailwind CSS pour un style moderne et un Cloudflare Worker pour gérer les requêtes API vers une base de données Supabase.
 
 ## Installation
 
@@ -42,6 +42,10 @@ public/
 *   Les feuilles de style CSS sont regroupées dans le dossier `public/css`.
 *   Le dossier `public/assets` est disponible pour les autres types de ressources comme les images ou les polices.
 
+## Architecture
+
+Avec cette refonte, SupaFlow utilise désormais un Cloudflare Worker pour gérer les interactions avec la base de données Supabase. Le frontend envoie toutes les requêtes API à l'URL du Worker, qui se charge ensuite de communiquer avec Supabase. Cela permet de sécuriser la clé API de Supabase et de centraliser la logique d'accès aux données.
+
 ## Configuration de Supabase
 
 Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
@@ -52,8 +56,6 @@ Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
 2. **Initir le schema de la base de donnée SupaFlow :**
    Après avoir créé votre projet, accédez à l'éditeur SQL dans l'interface de Supabase et exécutez le contenu du fichier `config/database_init.sql` pour initialiser le schéma de la base de données.
 
-3. **Obtenir les identifiants Supabase :**
-   Une fois votre projet créé et le schéma SQL initialisé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API anonyme de votre projet. Vous devrez entrer ces informations dans le fichier `public/js/script.js`.
 
 ## Utilisation
 
@@ -63,13 +65,13 @@ Voici comment utiliser SupaFlow pour créer et gérer vos landing pages :
    Accédez à l'interface d'administration via les fichiers dans le dossier `admin/`. Connectez-vous pour gérer vos pages.
 
 2. **Gérer les pages :**
-   Dans le tableau de bord d'administration, vous pouvez créer, modifier et supprimer des pages. La page de gestion des pages (`admin/manage-pages.html`) utilise HTMX pour charger la liste des pages directement depuis Supabase.
+   Dans le tableau de bord d'administration, vous pouvez créer, modifier et supprimer des pages. La page de gestion des pages (`admin/manage-pages.html`) utilise HTMX pour interagir avec le Cloudflare Worker afin de charger et de gérer la liste des pages.
 
 3. **Modifier `index.html` :**
    La structure de votre landing page est définie dans le fichier `index.html`. Vous pouvez modifier le contenu de la section `<main>` pour ajouter vos propres éléments.
 
 4. **Utiliser HTMX pour le contenu dynamique :**
-   SupaFlow utilise HTMX pour charger du contenu de manière dynamique directement depuis votre base de données Supabase. Vous pouvez ajouter des attributs HTMX à vos éléments HTML pour effectuer des requêtes et mettre à jour le contenu de la page sans rechargement complet.
+   SupaFlow utilise HTMX pour charger du contenu de manière dynamique via le Cloudflare Worker. Vous pouvez ajouter des attributs HTMX à vos éléments HTML pour effectuer des requêtes vers le Worker et mettre à jour le contenu de la page sans rechargement complet. L'URL du Worker est le point d'entrée pour toutes les requêtes HTMX.
 
 5. **Styler avec Tailwind CSS :**
    Utilisez les classes utilitaires de Tailwind CSS pour styler vos éléments HTML. Les styles sont définis dans le fichier `public/css/style.css`. La configuration de Tailwind CSS se trouve dans le fichier `tailwind.config.js`.
@@ -87,6 +89,8 @@ Pour déployer sur Cloudflare Pages :
 3. Choisissez le dépôt GitHub de votre projet SupaFlow.
 4. Dans la section "Configurer les builds", utilisez les paramètres par défaut. Cloudflare Pages détectera automatiquement qu'il s'agit d'un site statique.
 5. Cliquez sur "Enregistrer et déployer".
+
+**Note importante :** N'oubliez pas de déployer séparément le Cloudflare Worker sur Cloudflare Workers. Le code du Worker se trouve dans le fichier `worker.js`.
 
 ### 2. GitHub Pages
 
