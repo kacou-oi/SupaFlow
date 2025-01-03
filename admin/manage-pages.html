@@ -11,8 +11,11 @@
         <h1 class="text-3xl font-semibold mb-4">Gérer les Pages</h1>
         <div class="bg-white shadow-md rounded p-4">
             <p>Ici, vous pouvez gérer les pages de votre site.</p>
+            <button hx-get="/admin/fetch-pages" hx-target="#pages-table tbody" hx-trigger="click" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
+                Charger les Pages
+            </button>
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white">
+                <table class="min-w-full bg-white" id="pages-table">
                     <thead>
                         <tr>
                             <th class="px-4 py-2 border-b">Titre</th>
@@ -22,7 +25,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="3" class="px-4 py-2 text-center">Chargement des pages...</td>
+                            <td colspan="3" class="px-4 py-2 text-center">Cliquez sur "Charger les Pages" pour afficher les pages.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -32,42 +35,38 @@
     </div>
     <script type="module">
         import { getSupabaseClient } from '../config.js';
+        import htmx from 'htmx.org';
 
         // Basic check for authentication
         if (!localStorage.getItem('supabase.auth.token')) {
             window.location.href = 'login.html';
         }
 
-        const supabase = getSupabaseClient();
-
         async function fetchPages() {
+            const supabase = getSupabaseClient();
             const { data: pages, error } = await supabase
                 .from('pages') // Replace 'pages' with your actual table name
                 .select('id, title, slug');
 
-            const tbody = document.querySelector('tbody');
-            tbody.innerHTML = ''; // Clear loading message
-
             if (error) {
-                tbody.innerHTML = `<tr><td colspan="3" class="text-red-500">${error.message}</td></tr>`;
-                return;
+                return `<tr><td colspan="3" class="text-red-500">${error.message}</td></tr>`;
             }
 
+            let rows = '';
             pages.forEach(page => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="px-4 py-2 border-b">${page.title}</td>
-                    <td class="px-4 py-2 border-b">${page.slug}</td>
-                    <td class="px-4 py-2 border-b">
-                        <button hx-get="/admin/edit-page.html?id=${page.id}" hx-target="#content" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Éditer</button>
-                        <button hx-delete="/admin/delete-page/${page.id}" hx-target="closest tr" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2">Supprimer</button>
-                    </td>
+                rows += `
+                    <tr>
+                        <td class="px-4 py-2 border-b">${page.title}</td>
+                        <td class="px-4 py-2 border-b">${page.slug}</td>
+                        <td class="px-4 py-2 border-b">
+                            <button hx-get="/admin/edit-page.html?id=${page.id}" hx-target="#content" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Éditer</button>
+                            <button hx-delete="/admin/delete-page/${page.id}" hx-target="closest tr" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2">Supprimer</button>
+                        </td>
+                    </tr>
                 `;
-                tbody.appendChild(row);
             });
+            return rows;
         }
-
-        fetchPages();
 
         htmx.on('htmx:beforeRequest', function(evt) {
             if (evt.detail.verb === 'delete') {
@@ -96,6 +95,19 @@
                 alert('Page supprimée avec succès.');
             }
         }
+
+        htmx.defineExtension('fetch-pages', {
+            onEvent: {
+                'htmx:configRequest': function(config) {
+                    if (config.triggerEl.getAttribute('hx-get') === '/admin/fetch-pages') {
+                        config.handler = async function(xhr) {
+                            xhr.respond(200, await fetchPages());
+                        };
+                    }
+                }
+            }
+        });
+        htmx.addExtension('fetch-pages');
     </script>
 </body>
 </html>

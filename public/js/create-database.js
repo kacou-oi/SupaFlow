@@ -12,41 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const adminPassword = formData.get('adminPassword');
         const installSampleData = formData.get('installSampleData');
 
-        const envContent = `export const supabaseUrl = '${supabaseUrl}';
-export const supabaseKey = '${supabaseKey}';
-export const siteUrlProd = ''; // À remplacer par l'URL de production
-export const adminEmail = '${adminEmail}';
-export const adminPassword = '${adminPassword}';
-`;
-
         try {
-            // Write environment variables to config/env.js
-            const response = await fetch('/tool_code', {
+            // Send Supabase credentials to the server
+            const envResponse = await fetch('/admin/update-env', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    tool_name: 'write_to_file',
-                    arguments: {
-                        path: 'config/env.js',
-                        content: envContent,
-                    },
-                }),
+                body: JSON.stringify({ supabaseUrl, supabaseKey }),
             });
 
-            if (!response.ok) {
-                const message = `Error writing to config/env.js: ${response.status} - ${await response.text()}`;
-                console.error(message);
-                alert(message);
+            if (!envResponse.ok) {
+                const message = await envResponse.text();
+                alert('Error saving Supabase credentials: ' + message);
                 return;
             }
+            console.log('Supabase credentials saved successfully.');
 
-            const supabase = getSupabaseClient();
-
-            // 1. Create admin user
-            console.log('1. Creating admin user...');
-            const { data: user, error: userError } = await supabase.auth.signUp({
+            const { data: { user }, error: userError } = await supabase.auth.signUp({
                 email: adminEmail,
                 password: adminPassword,
             });
@@ -75,7 +58,7 @@ export const adminPassword = '${adminPassword}';
                 console.log('3. Installing sample data from config/sample_data.sql...');
                 const sampleDataResponse = await fetch('/config/sample_data.sql');
                 const sampleDataSql = await sampleDataResponse.text();
-                const { error: sampleDataError } = await supabase.rpc('run_sql', { sql: sampleDataError });
+                const { error: sampleDataError } = await supabase.rpc('run_sql', { sql: sampleDataSql });
 
                 if (sampleDataError) {
                     console.error('Error installing sample data:', sampleDataError);

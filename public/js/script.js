@@ -23,3 +23,33 @@ async function handleLogin(event) {
 
 const loginForm = document.querySelector('form');
 loginForm.addEventListener('submit', handleLogin);
+
+// Handle the /admin/update-env route
+if (window.location.pathname === '/admin/update-env') {
+    window.addEventListener('load', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const supabaseUrl = urlParams.get('supabaseUrl');
+        const supabaseKey = urlParams.get('supabaseKey');
+
+        if (supabaseUrl && supabaseKey) {
+            try {
+                const response = await fetch('/admin/update-env-handler', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ supabaseUrl, supabaseKey }),
+                });
+
+                if (response.ok) {
+                    console.log('Supabase credentials saved successfully.');
+                } else {
+                    const message = await response.text();
+                    console.error('Error saving Supabase credentials:', message);
+                }
+            } catch (error) {
+                console.error('Error saving Supabase credentials:', error);
+            }
+        }
+    });
+}
