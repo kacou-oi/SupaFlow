@@ -50,7 +50,7 @@ Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
    Rendez-vous sur [supabase.com](https://supabase.com/) et créez un nouveau projet.
 
 2. **Initir le schema de la base de donnée SupaFlow :**
-   Après avoir créé votre projet, accédez à l'éditeur SQL et exécutez le contenu du fichier `config/database_init.sql` pour initialiser le schéma de la base de données.
+   Après avoir créé votre projet, accédez à l'éditeur SQL dans l'interface de Supabase et exécutez le contenu du fichier `config/database_init.sql` pour initialiser le schéma de la base de données.
 
 3. **Obtenir les identifiants Supabase :**
    Une fois votre projet créé et le schéma SQL initialisé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API anonyme de votre projet. Vous devrez entrer ces informations dans le fichier `public/js/script.js`.
