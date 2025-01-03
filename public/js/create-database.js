@@ -6,11 +6,42 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const formData = new FormData(installForm);
         const projectName = formData.get('projectName');
+        const supabaseUrl = formData.get('supabaseUrl');
+        const supabaseKey = formData.get('supabaseKey');
         const adminEmail = formData.get('adminEmail');
         const adminPassword = formData.get('adminPassword');
         const installSampleData = formData.get('installSampleData');
 
+        const envContent = `export const supabaseUrl = '${supabaseUrl}';
+export const supabaseKey = '${supabaseKey}';
+export const siteUrlProd = ''; // À remplacer par l'URL de production
+export const adminEmail = '${adminEmail}';
+export const adminPassword = '${adminPassword}';
+`;
+
         try {
+            // Write environment variables to config/env.js
+            const response = await fetch('/tool_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tool_name: 'write_to_file',
+                    arguments: {
+                        path: 'config/env.js',
+                        content: envContent,
+                    },
+                }),
+            });
+
+            if (!response.ok) {
+                const message = `Error writing to config/env.js: ${response.status} - ${await response.text()}`;
+                console.error(message);
+                alert(message);
+                return;
+            }
+
             const supabase = getSupabaseClient();
 
             // 1. Create admin user

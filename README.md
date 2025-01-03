@@ -43,7 +43,7 @@ Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
    Rendez-vous sur [supabase.com](https://supabase.com/) et créez un nouveau projet.
 
 2. **Obtenir les identifiants Supabase :**
-   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API anonyme de votre projet. Ajoutez ces informations dans le fichier `.env` situé dans le dossier `config/`.
+   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API anonyme de votre projet. Vous devrez entrer ces informations dans le formulaire d'installation.
 
 ## Utilisation
 
