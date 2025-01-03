@@ -12,8 +12,8 @@ Suivez ces étapes pour installer et configurer SupaFlow :
    cd supaflow
    ```
 
-2. **Processus d'installation :**
-   Ouvrez le fichier `admin/install.html` dans votre navigateur. Vous serez invité à initialiser le schéma de votre base de données Supabase directement via l'interface Supabase.
+2. **Initialisation de la base de données :**
+   Ouvrez votre interface Supabase et exécutez le contenu du fichier `config/database_init.sql` pour initialiser le schéma de la base de données.
 
 
 ## Structure du projet

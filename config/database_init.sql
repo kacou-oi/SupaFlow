@@ -45,3 +45,10 @@ CREATE TABLE article_tags (
     tag_id INT REFERENCES tags(id),
     PRIMARY KEY (article_id, tag_id)
 );
+
+CREATE TABLE settings (
+    id SERIAL PRIMARY KEY,
+    site_name VARCHAR(255) NOT NULL,
+    installation_url VARCHAR(255) NOT NULL,
+    admin_email VARCHAR(255) NOT NULL
+);
