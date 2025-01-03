@@ -1,0 +1,17 @@
+{
+  "name": "supaflow-static-cms",
+  "version": "1.0.0",
+  "description": "Static CMS built with Supabase",
+  "scripts": {
+    "start": "open public/index.html"
+  },
+  "keywords": [
+    "static",
+    "cms",
+    "supabase",
+    "htmx",
+    "tailwindcss"
+  ],
+  "author": "You",
+  "license": "ISC"
+}

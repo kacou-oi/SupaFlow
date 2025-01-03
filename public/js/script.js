@@ -70,3 +70,20 @@ const adminForm = document.getElementById('adminForm');
 if (adminForm) {
     adminForm.addEventListener('submit', handleAdminCreation);
 }
+
+async function testSupabaseConnection() {
+    const statusDiv = document.getElementById('supabase-status');
+    statusDiv.textContent = 'Test de connexion en cours...';
+    try {
+        const { data, error } = await supabase.from('settings').select('*').limit(1);
+        if (error) {
+            statusDiv.textContent = 'Erreur de connexion à Supabase : ' + error.message;
+        } else {
+            statusDiv.textContent = 'Connexion à Supabase réussie !';
+        }
+    } catch (error) {
+        statusDiv.textContent = 'Erreur de connexion à Supabase : ' + error.message;
+    }
+}
+
+document.getElementById('testSupabase').addEventListener('click', testSupabaseConnection);
