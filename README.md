@@ -13,7 +13,7 @@ Suivez ces étapes pour installer et configurer SupaFlow :
    ```
 
 2. **Processus d'installation :**
-   Ouvrez le fichier `admin/install.html` dans votre navigateur pour démarrer le processus d'installation et initialiser votre base de données Supabase.
+   Ouvrez le fichier `admin/install.html` dans votre navigateur. Vous serez invité à initialiser le schéma de votre base de données Supabase directement via l'interface Supabase.
 
 
 ## Structure du projet
@@ -35,15 +35,11 @@ public/
 │   └── doc.txt
 ├── css/
 │   └── style.css
-└── js/
-    ├── script.js
-    └── create-database.js
 ```
 
 *   Le dossier `admin/` contient les fichiers HTML pour l'interface d'administration.
 *   Les fichiers HTML publics (`index.html`) sont situés à la racine du dossier `public`.
 *   Les feuilles de style CSS sont regroupées dans le dossier `public/css`.
-*   Les fichiers JavaScript sont regroupés dans le dossier `public/js`.
 *   Le dossier `public/assets` est disponible pour les autres types de ressources comme les images ou les polices.
 
 ## Configuration de Supabase
@@ -54,7 +50,7 @@ Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
    Rendez-vous sur [supabase.com](https://supabase.com/) et créez un nouveau projet.
 
 2. **Obtenir les identifiants Supabase :**
-   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API anonyme de votre projet. Vous devrez entrer ces informations dans les fichiers JavaScript.
+   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API anonyme de votre projet. Vous devrez entrer ces informations dans le fichier `public/js/script.js`.
 
 ## Utilisation
 
