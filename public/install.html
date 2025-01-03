@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation du CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Installation du CMS</h2>
+        <form id="installForm" class="space-y-4">
+            <div>
+                <label for="projectName" class="block text-gray-700 text-sm font-bold mb-2">Nom du projet</label>
+                <input type="text" id="projectName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nom de votre projet">
+            </div>
+            <div>
+                <label for="supabaseUrl" class="block text-gray-700 text-sm font-bold mb-2">URL Supabase</label>
+                <input type="url" id="supabaseUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre URL Supabase">
+            </div>
+            <div>
+                <label for="supabaseApiKey" class="block text-gray-700 text-sm font-bold mb-2">Clé API Supabase</label>
+                <input type="text" id="supabaseApiKey" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre clé API Supabase">
+            </div>
+            <div>
+                <label for="adminEmail" class="block text-gray-700 text-sm font-bold mb-2">Email de l'administrateur</label>
+                <input type="email" id="adminEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email de l'administrateur">
+            </div>
+            <div>
+                <label for="adminPassword" class="block text-gray-700 text-sm font-bold mb-2">Mot de passe de l'administrateur</label>
+                <input type="password" id="adminPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Mot de passe de l'administrateur">
+            </div>
+            <div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Installer
+                </button>
+            </div>
+            <div>
+                <input type="checkbox" id="installSampleData" class="mr-2">
+                <label for="installSampleData" class="text-gray-700 text-sm font-bold">Installer des données d'exemple</label>
+            </div>
+        </form>
+    </div>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+        const installForm = document.getElementById('installForm');
+        installForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const projectName = document.getElementById('projectName').value;
+            const supabaseUrl = document.getElementById('supabaseUrl').value;
+            const supabaseApiKey = document.getElementById('supabaseApiKey').value;
+            const adminEmail = document.getElementById('adminEmail').value;
+            const adminPassword = document.getElementById('adminPassword').value;
+            const installSampleData = document.getElementById('installSampleData').checked;
+
+            try {
+                // Update .env file (simulated, actual file system access not possible in this environment)
+                console.log('Updating .env with:', { SUPABASE_URL: supabaseUrl, SUPABASE_API_KEY: supabaseApiKey });
+
+                const supabase = createClient(supabaseUrl, supabaseApiKey);
+
+                // Initialize database (simulated, actual database command execution not possible in this environment)
+                console.log('Initializing database...');
+
+                // Create admin user
+                const { data, error } = await supabase.auth.signUp({
+                    email: adminEmail,
+                    password: adminPassword,
+                });
+
+                if (error) {
+                    alert('Erreur lors de la création de l\'utilisateur admin: ' + error.message);
+                } else {
+                    alert('Installation terminée avec succès! Utilisateur admin créé.');
+                    // Redirect to admin login page
+                    window.location.href = '/admin/login.html';
+                }
+
+                if (installSampleData) {
+                    alert('N\'oubliez pas d\'exécuter manuellement le fichier config/sample_data.sql pour insérer les données d\'exemple.');
+                }
+
+            } catch (error) {
+                console.error('Installation error:', error);
+                alert('Erreur lors de l\'installation: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

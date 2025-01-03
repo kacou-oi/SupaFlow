@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gérer les Pages - SupaFlow</title>
+    <link href="../output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-semibold mb-4">Gérer les Pages</h1>
+        <div class="bg-white shadow-md rounded p-4">
+            <p>Ici, vous pouvez gérer les pages de votre site.</p>
+            <ul id="pages-list">
+                <li>Chargement des pages...</li>
+            </ul>
+            <a hx-get="/admin/dashboard.html" hx-target="#content" class="text-blue-500 hover:text-blue-700 mt-4 block">Retour au tableau de bord</a>
+        </div>
+    </div>
+    <script type="module">
+        import { getSupabaseClient } from '../config.js';
+
+        // Basic check for authentication
+        if (!localStorage.getItem('supabase.auth.token')) {
+            window.location.href = 'login.html';
+        }
+
+        const supabase = getSupabaseClient();
+
+        async function fetchPages() {
+            const { data: pages, error } = await supabase
+                .from('pages') // Replace 'pages' with your actual table name
+                .select('title, slug');
+
+            if (error) {
+                console.error('Error fetching pages:', error);
+                document.getElementById('pages-list').innerHTML = 'Erreur lors du chargement des pages.';
+            } else {
+                const pagesList = document.getElementById('pages-list');
+                pagesList.innerHTML = '';
+                pages.forEach(page => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${page.title} (${page.slug})`;
+                    pagesList.appendChild(listItem);
+                });
+            }
+        }
+
+        fetchPages();
+    </script>
+        if (!localStorage.getItem('supabase.auth.token')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
