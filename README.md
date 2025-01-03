@@ -12,15 +12,8 @@ Suivez ces étapes pour installer et configurer SupaFlow :
    cd supaflow
    ```
 
-2. **Configurer les variables d'environnement :**
-   - Copiez le fichier `example.env` vers `.env` :
-     ```bash
-     cp example.env .env
-     ```
-   - Ouvrez le fichier `.env` et remplacez les valeurs d'espace réservé par vos identifiants Supabase.
-
-3. **Processus d'installation :**
-   Ouvrez le fichier `public/install.html` dans votre navigateur pour démarrer le processus d'installation. Suivez les instructions à l'écran pour configurer votre projet, connecter Supabase et créer le compte administrateur initial.
+2. **Processus d'installation :**
+   Ouvrez le fichier `public/install.html` dans votre navigateur pour démarrer le processus d'installation. Suivez les instructions à l'écran pour configurer votre projet, fournir vos identifiants Supabase et créer le compte administrateur initial. Les identifiants Supabase seront automatiquement enregistrés dans un fichier `.env` à la racine du projet.
 
 ## Structure du projet
 
@@ -50,10 +43,7 @@ Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
    Rendez-vous sur [supabase.com](https://supabase.com/) et créez un nouveau projet.
 
 2. **Obtenir les identifiants Supabase :**
-   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API de votre projet.
-
-3. **Mettre à jour le fichier `.env` :**
-   Remplacez les valeurs d'espace réservé dans le fichier `.env` par l'URL et la clé API de votre projet Supabase.
+   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API de votre projet. Ces informations vous seront demandées lors du processus d'installation.
 
 ## Utilisation
 

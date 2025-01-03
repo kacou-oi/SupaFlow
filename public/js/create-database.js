@@ -5,13 +5,45 @@ document.addEventListener('DOMContentLoaded', () => {
     installForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const formData = new FormData(installForm);
+        const projectName = formData.get('projectName');
+        const supabaseUrl = formData.get('supabaseUrl');
+        const supabaseKey = formData.get('supabaseKey');
         const adminEmail = formData.get('adminEmail');
         const adminPassword = formData.get('adminPassword');
         const installSampleData = formData.get('installSampleData');
 
-        const supabase = getSupabaseClient();
+        const envContent = `export const supabaseUrl = '${supabaseUrl}';
+export const supabaseKey = '${supabaseKey}';
+export const siteUrlProd = ''; // À remplacer par l'URL de production
+export const adminEmail = '${adminEmail}';
+export const adminPassword = '${adminPassword}';
+`;
 
         try {
+            // Write environment variables to config/env.js
+            const response = await fetch('/tool_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tool_name: 'write_to_file',
+                    arguments: {
+                        path: 'config/env.js',
+                        content: envContent,
+                    },
+                }),
+            });
+
+            if (!response.ok) {
+                const message = `Error writing to config/env.js: ${response.status} - ${await response.text()}`;
+                console.error(message);
+                alert(message);
+                return;
+            }
+
+            const supabase = getSupabaseClient();
+
             // 1. Create admin user
             console.log('1. Creating admin user...');
             const { data: user, error: userError } = await supabase.auth.signUp({
@@ -20,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (userError) {
-                alert('Erreur lors de la création de l\'utilisateur admin: ' + userError.message);
+                alert('Error creating admin user: ' + userError.message);
                 return;
             }
             console.log('Admin user created successfully.');
@@ -33,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (databaseError) {
                 console.error('Error initializing database schema:', databaseError);
-                alert('Erreur lors de l\'initialisation du schéma de la base de données: ' + databaseError.message);
+                alert('Error initializing database schema: ' + databaseError.message);
                 return;
             }
             console.log('Database schema initialized successfully.');
@@ -43,11 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('3. Installing sample data from config/sample_data.sql...');
                 const sampleDataResponse = await fetch('/config/sample_data.sql');
                 const sampleDataSql = await sampleDataResponse.text();
-                const { error: sampleDataError } = await supabase.rpc('run_sql', { sql: sampleDataSql });
+                const { error: sampleDataError } = await supabase.rpc('run_sql', { sql: sampleDataError });
 
                 if (sampleDataError) {
                     console.error('Error installing sample data:', sampleDataError);
-                    alert('Erreur lors de l\'installation des données d\'exemple: ' + sampleDataError.message);
+                    alert('Error installing sample data: ' + sampleDataError.message);
                     return;
                 }
                 console.log('Sample data installed successfully.');
@@ -55,13 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Skipping sample data installation.');
             }
 
-            alert('Installation terminée avec succès!');
+            alert('Installation successful!');
             // Redirect to admin login page
             window.location.href = '/admin/login.html';
 
         } catch (error) {
             console.error('Installation error:', error);
-            alert('Erreur lors de l\'installation: ' + error.message);
+            alert('Installation error: ' + error.message);
         }
     });
 });
