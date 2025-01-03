@@ -13,7 +13,7 @@ Suivez ces étapes pour installer et configurer SupaFlow :
    ```
 
 2. **Initialisation de la base de données :**
-   Ouvrez votre interface Supabase et exécutez le contenu du fichier `config/database_init.sql` pour initialiser le schéma de la base de données.
+   Après avoir créé votre projet Supabase, ouvrez l'éditeur SQL de votre projet et exécutez le contenu du fichier `config/database_init.sql` pour initialiser le schéma de la base de données.
 
 
 ## Structure du projet
@@ -114,6 +114,16 @@ Pour déployer sur Vercel :
 3. Choisissez le dépôt GitHub de votre projet SupaFlow.
 4. Vercel détectera automatiquement qu'il s'agit d'un site statique et configurera le déploiement.
 5. Cliquez sur "Deploy".
+
+### 5. cPanel
+
+Pour déployer sur cPanel :
+
+1. Connectez-vous à votre panneau d'administration cPanel.
+2. Ouvrez le "Gestionnaire de fichiers".
+3. Naviguez jusqu'au dossier racine de votre site web (souvent `public_html`).
+4. Téléchargez les fichiers de votre projet SupaFlow dans ce dossier.
+5. Assurez-vous que votre configuration DNS pointe vers le répertoire où vous avez téléchargé les fichiers.
 
 ## Contribution
 
