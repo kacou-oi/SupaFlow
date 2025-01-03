@@ -1,0 +1,1 @@
+Ce dossier contient les ressources statiques du site web, telles que les images, les polices et autres fichiers multimédias.
