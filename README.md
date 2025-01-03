@@ -17,19 +17,30 @@ Suivez ces étapes pour installer et configurer SupaFlow :
      ```bash
      cp example.env .env
      ```
-   - Ouvrez le fichier `.env` et remplacez les valeurs d'espace réservé par vos identifiants Supabase :
-     ```
-     SUPABASE_URL=VOTRE_URL_SUPABASE
-     SUPABASE_API_KEY=VOTRE_CLE_API_SUPABASE
-   ```
+   - Ouvrez le fichier `.env` et remplacez les valeurs d'espace réservé par vos identifiants Supabase.
 
 3. **Processus d'installation :**
    Ouvrez le fichier `public/install.html` dans votre navigateur pour démarrer le processus d'installation. Suivez les instructions à l'écran pour configurer votre projet, connecter Supabase et créer le compte administrateur initial.
 
-4. **Configuration manuelle additionnelle :**
-   - **Mise à jour du fichier `.env` :** Après avoir utilisé le formulaire d'installation, ouvrez le fichier `config/.env` et assurez-vous que les valeurs de `SUPABASE_URL` et `SUPABASE_API_KEY` correspondent à vos informations Supabase.
-   - **Initialisation de la base de données :** Exécutez le script SQL contenu dans `config/database_init.sql` sur votre base de données Supabase. Vous pouvez le faire en utilisant l'éditeur SQL de Supabase ou en utilisant la CLI Supabase avec la commande : `supabase db reset -- --file "config/database_init.sql"`
-   - **Installation des données d'exemple (optionnel) :** Si vous souhaitez installer des données d'exemple, exécutez le script `config/sample_data.sql` sur votre base de données Supabase après l'initialisation.
+## Structure du projet
+
+La structure des fichiers importants est la suivante :
+
+```
+public/
+├── index.html
+├── install.html
+├── assets/
+├── css/
+│   └── style.css
+└── js/
+    └── script.js
+```
+
+*   Les fichiers HTML (`index.html`, `install.html`) sont situés à la racine du dossier `public`.
+*   Les feuilles de style CSS sont regroupées dans le dossier `public/css`.
+*   Les fichiers JavaScript sont regroupés dans le dossier `public/js`.
+*   Le dossier `public/assets` est disponible pour les autres types de ressources comme les images ou les polices.
 
 ## Configuration de Supabase
 
@@ -55,7 +66,7 @@ Voici comment utiliser SupaFlow pour créer et gérer vos landing pages :
    SupaFlow utilise HTMX pour charger du contenu de manière dynamique. Vous pouvez ajouter des attributs HTMX à vos éléments HTML pour effectuer des requêtes vers votre base de données Supabase et mettre à jour le contenu de la page sans rechargement complet.
 
 3. **Styler avec Tailwind CSS :**
-   Utilisez les classes utilitaires de Tailwind CSS pour styler vos éléments HTML. Le fichier `output.css` contient tous les styles nécessaires.
+   Utilisez les classes utilitaires de Tailwind CSS pour styler vos éléments HTML. Les styles sont définis dans le fichier `public/css/style.css`.
 
 ## Contribution
 
