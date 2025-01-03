@@ -1,6 +1,6 @@
 # SupaFlow
 
-SupaFlow est un CMS open-source pour la création de landing pages, développé par Ange Kacou Oi ([kacou-oi.com](https://kacou-oi.com)). Il utilise HTMX pour une expérience utilisateur dynamique, Tailwind CSS pour un style moderne et une base de données Supabase pour la gestion du contenu.
+SupaFlow est un CMS statique open-source pour la création de landing pages, développé par Ange Kacou Oi ([kacou-oi.com](https://kacou-oi.com)). Il utilise HTMX pour une expérience utilisateur dynamique, Tailwind CSS pour un style moderne et une base de données Supabase pour la gestion du contenu, le tout interrogeable directement depuis le navigateur.
 
 ## Installation
 
@@ -12,8 +12,13 @@ Suivez ces étapes pour installer et configurer SupaFlow :
    cd supaflow
    ```
 
-2. **Processus d'installation :**
-   Ouvrez le fichier `admin/install.html` dans votre navigateur pour démarrer le processus d'installation. Suivez les instructions à l'écran pour configurer votre projet et créer le compte administrateur initial.
+2. **Configurer les clés d'API Supabase :**
+   Ouvrez le fichier `public/js/script.js` et `public/js/create-database.js` et remplacez les placeholders `YOUR_SUPABASE_URL` et `YOUR_SUPABASE_KEY` par vos identifiants Supabase.
+
+   **Attention :** Inclure directement vos clés d'API dans le code client n'est pas recommandé pour les applications en production. Considérez des méthodes plus sécurisées pour gérer les secrets en environnement de production.
+
+3. **Processus d'installation :**
+   Ouvrez le fichier `admin/install.html` dans votre navigateur pour démarrer le processus d'installation et initialiser votre base de données Supabase.
 
 ## Structure du projet
 
@@ -35,7 +40,8 @@ public/
 ├── css/
 │   └── style.css
 └── js/
-    └── script.js
+    ├── script.js
+    └── create-database.js
 ```
 
 *   Le dossier `admin/` contient les fichiers HTML pour l'interface d'administration.
@@ -52,7 +58,7 @@ Pour utiliser SupaFlow, vous devez configurer un projet Supabase :
    Rendez-vous sur [supabase.com](https://supabase.com/) et créez un nouveau projet.
 
 2. **Obtenir les identifiants Supabase :**
-   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API anonyme de votre projet. Vous devrez entrer ces informations dans le formulaire d'installation.
+   Une fois votre projet créé, accédez aux paramètres de votre projet et récupérez l'URL et la clé API anonyme de votre projet. Vous devrez entrer ces informations dans les fichiers JavaScript.
 
 ## Utilisation
 
@@ -62,28 +68,26 @@ Voici comment utiliser SupaFlow pour créer et gérer vos landing pages :
    Accédez à l'interface d'administration via les fichiers dans le dossier `admin/`. Connectez-vous pour gérer vos pages.
 
 2. **Gérer les pages :**
-   Dans le tableau de bord d'administration, vous pouvez créer, modifier et supprimer des pages. La page de gestion des pages (`admin/manage-pages.html`) utilise HTMX pour charger la liste des pages de manière dynamique après avoir cliqué sur le bouton "Charger les Pages".
+   Dans le tableau de bord d'administration, vous pouvez créer, modifier et supprimer des pages. La page de gestion des pages (`admin/manage-pages.html`) utilise HTMX pour charger la liste des pages directement depuis Supabase.
 
 3. **Modifier `index.html` :**
    La structure de votre landing page est définie dans le fichier `index.html`. Vous pouvez modifier le contenu de la section `<main>` pour ajouter vos propres éléments.
 
 4. **Utiliser HTMX pour le contenu dynamique :**
-   SupaFlow utilise HTMX pour charger du contenu de manière dynamique. Vous pouvez ajouter des attributs HTMX à vos éléments HTML pour effectuer des requêtes vers votre base de données Supabase et mettre à jour le contenu de la page sans rechargement complet.
+   SupaFlow utilise HTMX pour charger du contenu de manière dynamique directement depuis votre base de données Supabase. Vous pouvez ajouter des attributs HTMX à vos éléments HTML pour effectuer des requêtes et mettre à jour le contenu de la page sans rechargement complet.
 
 5. **Styler avec Tailwind CSS :**
    Utilisez les classes utilitaires de Tailwind CSS pour styler vos éléments HTML. Les styles sont définis dans le fichier `public/css/style.css`. La configuration de Tailwind CSS se trouve dans le fichier `tailwind.config.js`.
 
-## Déploiement sur Cloudflare Pages
+## Déploiement
 
-Pour déployer SupaFlow sur Cloudflare Pages, suivez ces étapes :
+Ce projet étant un site statique, vous pouvez le déployer sur diverses plateformes d'hébergement statique telles que :
 
-1. **Assurez-vous que votre code est sur un dépôt GitHub.**
-2. **Créez un compte Cloudflare et accédez à la section "Pages".**
-3. **Cliquez sur "Créer un projet" et sélectionnez votre dépôt GitHub.**
-4. **Dans les paramètres de configuration, assurez-vous que le "Répertoire de sortie" est défini sur `public`.**
-5. **Enregistrez et déployez.**
+* **Netlify :** [https://www.netlify.com/](https://www.netlify.com/)
+* **Vercel :** [https://vercel.com/](https://vercel.com/)
+* **GitHub Pages :** [https://pages.github.com/](https://pages.github.com/)
 
-   Pour gérer les redirections et supprimer l'extension `.html` des URLs, un fichier `_redirects` a été ajouté au dossier `public`. Ce fichier contient les règles de redirection pour Cloudflare Pages.
+Suivez les instructions de la plateforme choisie pour déployer votre site statique. Généralement, cela implique de connecter votre dépôt Git à la plateforme.
 
 ## Contribution
 
