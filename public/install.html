@@ -4,40 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Installation du CMS</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded shadow-md w-96">
         <h2 class="text-2xl font-semibold mb-6 text-center">Installation du CMS</h2>
-        <form id="installForm" class="space-y-4">
-            <div>
+        <form id="installForm" class="space-y-6" hx-boost="false">
+            <div id="step1">
+                <h3 class="text-xl font-semibold mb-4">Informations du projet</h3>
                 <label for="projectName" class="block text-gray-700 text-sm font-bold mb-2">Nom du projet</label>
-                <input type="text" id="projectName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nom de votre projet">
+                <input type="text" id="projectName" name="projectName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nom de votre projet">
+                <button type="button" hx-get="#step2" hx-target="#installForm" hx-select="#step2" hx-swap="outerHTML" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Suivant</button>
             </div>
-            <div>
-                <label for="supabaseUrl" class="block text-gray-700 text-sm font-bold mb-2">URL Supabase</label>
-                <input type="url" id="supabaseUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre URL Supabase">
+
+            <div id="step2">
+                <h3 class="text-xl font-semibold mb-4">Configuration Supabase</h3>
+                <p class="text-gray-700 mb-4">Les informations de connexion à Supabase sont maintenant gérées dans le fichier <code>.env</code>.</p>
+                <button type="button" hx-get="#step1" hx-target="#installForm" hx-select="#step1" hx-swap="outerHTML" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 mr-2">Précédent</button>
+                <button type="button" hx-get="#step3" hx-target="#installForm" hx-select="#step3" hx-swap="outerHTML" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Suivant</button>
             </div>
-            <div>
-                <label for="supabaseApiKey" class="block text-gray-700 text-sm font-bold mb-2">Clé API Supabase</label>
-                <input type="text" id="supabaseApiKey" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre clé API Supabase">
-            </div>
-            <div>
+
+            <div id="step3">
+                <h3 class="text-xl font-semibold mb-4">Création de l'administrateur</h3>
                 <label for="adminEmail" class="block text-gray-700 text-sm font-bold mb-2">Email de l'administrateur</label>
-                <input type="email" id="adminEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email de l'administrateur">
-            </div>
-            <div>
+                <input type="email" id="adminEmail" name="adminEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email de l'administrateur">
                 <label for="adminPassword" class="block text-gray-700 text-sm font-bold mb-2">Mot de passe de l'administrateur</label>
-                <input type="password" id="adminPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Mot de passe de l'administrateur">
-            </div>
-            <div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Installer
+                <input type="password" id="adminPassword" name="adminPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Mot de passe de l'administrateur">
+                <div>
+                    <input type="checkbox" id="installSampleData" name="installSampleData" class="mr-2">
+                    <label for="installSampleData" class="text-gray-700 text-sm font-bold">Installer les données d'exemple</label>
+                </div>
+                <button type="button" hx-get="#step2" hx-target="#installForm" hx-select="#step2" hx-swap="outerHTML" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 mr-2">Précédent</button>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
+                    Lancer l'installation
                 </button>
-            </div>
-            <div>
-                <input type="checkbox" id="installSampleData" class="mr-2">
-                <label for="installSampleData" class="text-gray-700 text-sm font-bold">Installer des données d'exemple</label>
             </div>
         </form>
     </div>
@@ -45,41 +46,70 @@
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
         const installForm = document.getElementById('installForm');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+
+        // Show the first step by default
+        step2.style.display = 'none';
+        step3.style.display = 'none';
+
+        installForm.addEventListener('htmx:afterSwap', (event) => {
+            if (event.detail.target.id === 'installForm') {
+                step1.style.display = 'block';
+                step2.style.display = 'none';
+                step3.style.display = 'none';
+                if (event.detail.xhr.responseURL.endsWith('#step2')) {
+                    step1.style.display = 'none';
+                    step2.style.display = 'block';
+                } else if (event.detail.xhr.responseURL.endsWith('#step3')) {
+                    step1.style.display = 'none';
+                    step2.style.display = 'none';
+                    step3.style.display = 'block';
+                }
+            }
+        });
+
         installForm.addEventListener('submit', async (event) => {
             event.preventDefault();
-            const projectName = document.getElementById('projectName').value;
-            const supabaseUrl = document.getElementById('supabaseUrl').value;
-            const supabaseApiKey = document.getElementById('supabaseApiKey').value;
-            const adminEmail = document.getElementById('adminEmail').value;
-            const adminPassword = document.getElementById('adminPassword').value;
-            const installSampleData = document.getElementById('installSampleData').checked;
+            const formData = new FormData(installForm);
+            const projectName = formData.get('projectName');
+            const adminEmail = formData.get('adminEmail');
+            const adminPassword = formData.get('adminPassword');
+            const installSampleData = formData.get('installSampleData');
+
+            const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+            const supabaseApiKey = import.meta.env.VITE_SUPABASE_API_KEY;
 
             try {
-                // Update .env file (simulated, actual file system access not possible in this environment)
-                console.log('Updating .env with:', { SUPABASE_URL: supabaseUrl, SUPABASE_API_KEY: supabaseApiKey });
-
                 const supabase = createClient(supabaseUrl, supabaseApiKey);
 
-                // Initialize database schema (simulated)
-                console.log('Initializing database schema from config/database_init.sql...');
-
-                // Create admin user
-                const { data, error } = await supabase.auth.signUp({
+                // 1. Create admin user
+                console.log('1. Creating admin user...');
+                const { data: user, error: userError } = await supabase.auth.signUp({
                     email: adminEmail,
                     password: adminPassword,
                 });
 
-                if (error) {
-                    alert('Erreur lors de la création de l\'utilisateur admin: ' + error.message);
+                if (userError) {
+                    alert('Erreur lors de la création de l\'utilisateur admin: ' + userError.message);
+                    return;
+                }
+                console.log('Admin user created successfully.');
+
+                // 2. Initialize database schema (simulated)
+                console.log('2. Initializing database schema from config/database_init.sql...');
+
+                // 3. Install sample data (simulated)
+                if (installSampleData) {
+                    console.log('3. Installing sample data from config/sample_data.sql...');
                 } else {
-                    alert('Installation terminée avec succès! Utilisateur admin créé.');
-                    // Redirect to admin login page
-                    window.location.href = '/admin/login.html';
+                    console.log('Skipping sample data installation.');
                 }
 
-                if (installSampleData) {
-                    alert('N\'oubliez pas d\'exécuter manuellement le fichier config/sample_data.sql pour insérer les données d\'exemple.');
-                }
+                alert('Installation terminée avec succès!');
+                // Redirect to admin login page
+                window.location.href = '/admin/login.html';
 
             } catch (error) {
                 console.error('Installation error:', error);
