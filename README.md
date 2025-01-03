@@ -8,7 +8,7 @@ Suivez ces étapes pour installer et configurer SupaFlow :
 
 1. **Cloner le dépôt GitHub :**
    ```bash
-   git clone https://github.com/votre-nom-utilisateur/supaflow.git
+   git clone https://github.com/kacou-oi/supaflow.git
    cd supaflow
    ```
 
@@ -86,6 +86,7 @@ Ce projet étant un site statique, vous pouvez le déployer sur diverses platefo
 * **Netlify :** [https://www.netlify.com/](https://www.netlify.com/)
 * **Vercel :** [https://vercel.com/](https://vercel.com/)
 * **GitHub Pages :** [https://pages.github.com/](https://pages.github.com/)
+* **GCloudFlare Pages :** [https://pages.cloudflare.com/](https://pages.cloudflare.com/)
 
 Suivez les instructions de la plateforme choisie pour déployer votre site statique. Généralement, cela implique de connecter votre dépôt Git à la plateforme.
 
