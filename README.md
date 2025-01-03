@@ -68,6 +68,16 @@ Voici comment utiliser SupaFlow pour créer et gérer vos landing pages :
 3. **Styler avec Tailwind CSS :**
    Utilisez les classes utilitaires de Tailwind CSS pour styler vos éléments HTML. Les styles sont définis dans le fichier `public/css/style.css`.
 
+## Déploiement sur Cloudflare Pages
+
+Pour déployer SupaFlow sur Cloudflare Pages, suivez ces étapes :
+
+1. **Assurez-vous que votre code est sur un dépôt GitHub.**
+2. **Créez un compte Cloudflare et accédez à la section "Pages".**
+3. **Cliquez sur "Créer un projet" et sélectionnez votre dépôt GitHub.**
+4. **Dans les paramètres de configuration, assurez-vous que le "Répertoire de sortie" est défini sur `public`.**
+5. **Enregistrez et déployez.**
+
 ## Contribution
 
 Les contributions à SupaFlow sont les bienvenues ! Si vous souhaitez contribuer au projet, veuillez consulter les [guidelines de contribution](CONTRIBUTING.md).
